@@ -14,8 +14,28 @@
         .logo { width: 80px; height: 80px; margin: 0 auto 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; }
         .header-card h1 { color: #1e293b; font-size: 2.5em; margin-bottom: 10px; font-weight: 700; }
         .header-card p { color: #64748b; font-size: 1.2em; }
-        .reload-btn { position: absolute; top: 30px; right: 30px; padding: 12px 24px; background: #10b981; color: white; border: none; border-radius: 10px; font-size: 1em; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); transition: all 0.3s; }
+        .header-buttons { position: absolute; top: 30px; right: 30px; display: flex; gap: 10px; }
+        .reload-btn { padding: 12px 24px; background: #10b981; color: white; border: none; border-radius: 10px; font-size: 1em; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); transition: all 0.3s; }
         .reload-btn:hover { background: #059669; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6); }
+        .print-btn { padding: 12px 24px; background: #3b82f6; color: white; border: none; border-radius: 10px; font-size: 1em; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); transition: all 0.3s; }
+        .print-btn:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6); }
+        
+        /* Estilos para impresión */
+        @media print {
+            body { background: white; padding: 0; }
+            .header-buttons, .reload-btn, .print-btn, .info-banner { display: none !important; }
+            .container { max-width: 100%; }
+            .header-card { box-shadow: none; border: 1px solid #e2e8f0; page-break-inside: avoid; }
+            .selector-card { box-shadow: none; border: 1px solid #e2e8f0; padding: 15px; page-break-inside: avoid; }
+            .selectors-grid { grid-template-columns: 1fr; gap: 10px; }
+            .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; page-break-inside: avoid; }
+            .stat-card { box-shadow: none; border: 1px solid #e2e8f0; padding: 15px; }
+            .charts-grid { grid-template-columns: 1fr; gap: 15px; }
+            .chart-card { box-shadow: none; border: 1px solid #e2e8f0; padding: 15px; page-break-inside: avoid; }
+            .chart-wrapper { height: 250px !important; }
+            .chart-combined .chart-wrapper { height: 300px !important; }
+            .chart-combined { page-break-before: always; }
+        }
         .info-banner { background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-left: 5px solid #0ea5e9; padding: 20px; border-radius: 15px; margin-bottom: 30px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .info-banner strong { color: #0369a1; font-size: 1.1em; }
         .selector-card { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-bottom: 30px; }
@@ -51,14 +71,17 @@
             .chart-combined { grid-column: 1; }
             .stats-grid { grid-template-columns: 1fr; }
             .selectors-grid { grid-template-columns: 1fr; }
-            .reload-btn { position: relative; top: auto; right: auto; margin-top: 20px; }
+            .header-buttons { position: relative; top: auto; right: auto; margin-top: 20px; flex-direction: column; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header-card">
-            <button class="reload-btn" onclick="cargarDatos()">🔄 Recargar Datos</button>
+            <div class="header-buttons">
+                <button class="print-btn" onclick="window.print()">🖨️ Imprimir</button>
+                <button class="reload-btn" onclick="cargarDatos()">🔄 Recargar Datos</button>
+            </div>
             <div class="logo">🏥</div>
             <h1>Dashboard - RESIDENCIA CIBELES</h1>
             <p>Sistema de Seguimiento Integrado</p>
